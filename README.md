@@ -1,1 +1,1 @@
-# shopping
+A set of useful components for building online shops.
