@@ -2,6 +2,9 @@
 
 namespace Kalnoy\Shopping\Contracts\Cart;
 
+use Kalnoy\Shopping\Contracts\Commerce\Product;
+use Kalnoy\Shopping\Data\Money;
+
 interface Cart extends \IteratorAggregate, \Countable
 {
     /**
@@ -23,24 +26,35 @@ interface Cart extends \IteratorAggregate, \Countable
     /**
      * Put product in cart.
      *
-     * If one is already in cart, the quantity is updated.
+     * If one is already in cart, the quantity is added to the current value.
      *
      * @param Product $product
-     * @param int $qty
+     * @param int $quantity
      *
-     * @return void
+     * @return $this
      */
-    public function put(Product $product, $qty = 1);
+    public function put(Product $product, $quantity = 1);
 
     /**
-     * Update the quantity for product or list of products.
+     * Update the quantity for the product.
      *
-     * @param array|Product|string $product
-     * @param null|int $qty
+     * The product will be added if not already in the cart.
      *
-     * @return void
+     * @param Product $product
+     * @param int $quantity
+     *
+     * @return $this
      */
-    public function update($product, $qty = null);
+    public function update(Product $product, $quantity);
+
+    /**
+     * Update the quantity for the list of products.
+     *
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function updateAll(array $data);
 
     /**
      * Remove product from cart.
@@ -70,14 +84,14 @@ interface Cart extends \IteratorAggregate, \Countable
     /**
      * Get items.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Item[]|\Illuminate\Support\Collection
      */
     public function items();
 
     /**
      * Get total price.
      *
-     * @return float
+     * @return Money
      */
     public function total();
 

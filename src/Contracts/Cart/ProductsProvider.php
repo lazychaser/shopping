@@ -2,6 +2,8 @@
 
 namespace Kalnoy\Shopping\Contracts\Cart;
 
+use Kalnoy\Shopping\Contracts\Commerce\Product;
+
 /**
  * SessionCart item provider interface.
  */

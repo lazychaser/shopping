@@ -215,4 +215,11 @@ class Money
         return 0;
     }
 
+    /**
+     * @return int
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 }
