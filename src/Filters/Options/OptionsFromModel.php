@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Shopping\Contracts\Filters\OptionsProvider;
+use Kalnoy\Shopping\Filters\Properties\BasicProperty;
 
 class OptionsFromModel implements OptionsProvider
 {
@@ -25,13 +26,18 @@ class OptionsFromModel implements OptionsProvider
     protected $title;
 
     /**
+     * @var string
+     */
+    protected $nullLabel;
+
+    /**
      * OptionsFromModel constructor.
      *
      * @param $modelClass
      * @param $title
      * @param array $columns
      */
-    public function __construct($modelClass, $title, $columns = [ '*'])
+    public function __construct($modelClass, $title, $columns = [ '*' ])
     {
         $this->columns = $columns;
         $this->modelClass = $modelClass;

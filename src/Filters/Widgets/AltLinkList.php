@@ -27,7 +27,10 @@ class AltLinkList extends LinkList
         $href = $this->getHref($option);
         $class = $this->getItemClass($option);
         $title = $this->html ? $option->title : e($option->title);
-        $frequency = $this->renderFrequency($option->frequency);
+        
+        $frequency = $this->shouldRenderFrequency($option->frequency) 
+            ? $this->renderFrequency($option->frequency)
+            : '';
 
         return $this->renderTemplate($this->itemTemplate,
                                      compact('href', 'class', 'title', 'frequency'));

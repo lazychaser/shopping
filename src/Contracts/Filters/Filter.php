@@ -25,7 +25,7 @@ interface Filter
      *
      * @return mixed
      */
-    public function gatherSensibleData(Builder $query);
+    public function gatherSignificantData(Builder $query);
 
     /**
      * Gather input for the filter.
@@ -50,6 +50,9 @@ interface Filter
      */
     public function getId();
 
+    /**
+     * @return bool
+     */
     public function hasData();
 
 }

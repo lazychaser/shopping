@@ -23,7 +23,7 @@ abstract class AbstractFilter implements Filter
      *
      * @var Property
      */
-    protected $parameter;
+    protected $property;
 
     /**
      * The input.
@@ -36,12 +36,12 @@ abstract class AbstractFilter implements Filter
      * Init the filter.
      *
      * @param string $id
-     * @param Property $parameter
+     * @param Property $property
      */
-    public function __construct($id, Property $parameter)
+    public function __construct($id, Property $property)
     {
         $this->id = $id;
-        $this->parameter = $parameter;
+        $this->property = $property;
     }
 
     /**
@@ -92,13 +92,13 @@ abstract class AbstractFilter implements Filter
     }
 
     /**
-     * Get the underlying parameter.
+     * Get the underlying property.
      *
      * @return Property
      */
-    public function getParameter()
+    public function getProperty()
     {
-        return $this->parameter;
+        return $this->property;
     }
 
 }

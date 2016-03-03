@@ -33,9 +33,11 @@ class Select extends AbstractOptionsWidget
     {
         $selected = $option ? ' selected="selected"' : '';
 
-        $frequency = $option->frequency;
+        $content = e($option->title);
 
-        $content = e($option->title).$this->renderFrequency($frequency);
+        if ($this->shouldRenderFrequency($option->frequency)) {
+            $content .= $this->renderFrequency($option->frequency);
+        }
 
         return '<option value="'.e($option->value).'"'.$selected.'>'.$content.'</option>';
     }
@@ -47,7 +49,7 @@ class Select extends AbstractOptionsWidget
      */
     protected function renderFrequency($frequency)
     {
-        return $frequency && $this->frequency ? ' ['.$frequency.']' : '';
+        return $frequency ? ' ['.$frequency.']' : '';
     }
 
     /**

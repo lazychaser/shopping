@@ -4,6 +4,7 @@ namespace Kalnoy\Shopping\Filters\Options;
 
 use Illuminate\Database\Query\Builder;
 use Kalnoy\Shopping\Contracts\Filters\OptionsProvider;
+use Kalnoy\Shopping\Filters\Properties\BasicProperty;
 
 class DatabaseOptions implements OptionsProvider
 {
@@ -48,7 +49,7 @@ class DatabaseOptions implements OptionsProvider
         $query = clone $this->query;
 
         return $query->whereIn($this->key, $keys)
-                     ->pluck($this->value, $this->key);
+                        ->pluck($this->value, $this->key);
     }
 
 }

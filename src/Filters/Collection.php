@@ -16,7 +16,7 @@ class Collection extends BaseCollection
     /**
      * @var bool
      */
-    public $collectSensibleData = true;
+    public $collectSignificantData = true;
 
     /**
      * Add a new filter to the collection.
@@ -30,7 +30,7 @@ class Collection extends BaseCollection
     public function add(Filter $filter)
     {
         if ($this->has($id = $filter->getId())) {
-            throw new RuntimeException("The filter with an id of [{$id}] is already exists.");
+            throw new RuntimeException("The filter with an id of [{$id}] is already defined.");
         }
 
         $this->put($id, $filter);
@@ -47,21 +47,22 @@ class Collection extends BaseCollection
      *
      * @return Builder
      */
-    public function applyFilters(Builder $query, array $input, Closure $filter = null)
+    public function applyFilters(Builder $query, array $input,
+                                 Closure $filter = null)
     {
         $this->gatherData($query);
 
         if ($filter) $filter($query, $input);
 
-        if ($this->gatherInput($input)) {
-            if ($this->collectSensibleData) {
-                $this->gatherSensibleData($query);
-            }
-
-            return $this->constraint($query);
+        if ( ! $this->gatherInput($input)) {
+            return $query;
         }
 
-        return $query;
+        if ($this->collectSignificantData) {
+            $this->gatherSignificantData($query);
+        }
+
+        return $this->constraint($query);
     }
 
     /**
@@ -105,11 +106,13 @@ class Collection extends BaseCollection
      *
      * @return void
      */
-    protected function gatherSensibleData(Builder $query)
+    protected function gatherSignificantData(Builder $query)
     {
         /** @var Filter $filter */
         foreach ($this->items as $filter) {
-            $filter->gatherSensibleData($this->constraint(clone $query, $filter));
+            $constrainedQuery = $this->constraint(clone $query, $filter);
+
+            $filter->gatherSignificantData($constrainedQuery);
         }
     }
 
@@ -125,7 +128,9 @@ class Collection extends BaseCollection
     {
         /** @var Filter $filter */
         foreach ($this->items as $filter) {
-            if ($filter !== $except) $filter->constraint($query);
+            if ($filter !== $except) {
+                $filter->constraint($query);
+            }
         }
 
         return $query;

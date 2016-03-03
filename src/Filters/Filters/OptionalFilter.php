@@ -18,22 +18,20 @@ class OptionalFilter extends AbstractFilter
     protected $options = [];
 
     /**
-     * Available options.
+     * Significant options.
      *
      * @var null|array
      */
-    protected $available;
+    protected $significantOptions;
 
     /**
-     * Get whether the value is active.
-     *
-     * @param mixed $value
+     * @param $option
      *
      * @return bool
      */
-    public function isActive($value)
+    public function hasOption($option)
     {
-        return in_array($value, $this->input);
+        return isset($this->options[$option]);
     }
 
     /**
@@ -53,15 +51,15 @@ class OptionalFilter extends AbstractFilter
      */
     public function gatherData(Builder $query)
     {
-        $this->options = $this->parameter->values($query);
+        $this->options = $this->property->values($query);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function gatherSensibleData(Builder $query)
+    public function gatherSignificantData(Builder $query)
     {
-        $this->available = $this->parameter->values($query);
+        $this->significantOptions = $this->property->values($query);
     }
 
     /**
@@ -70,7 +68,7 @@ class OptionalFilter extends AbstractFilter
     public function constraint(Builder $query)
     {
         if ($this->shouldConstraint()) {
-            $this->parameter->whereIn($query, $this->input);
+            $this->property->whereIn($query, $this->input);
         }
     }
 
@@ -81,7 +79,8 @@ class OptionalFilter extends AbstractFilter
      */
     public function shouldConstraint()
     {
-        return $this->hasOptions(2) && $this->hasInput() &&
+        return $this->hasOptions(2) &&
+               $this->hasInput() &&
              ! $this->inputHasAllOptions();
     }
 
@@ -90,19 +89,31 @@ class OptionalFilter extends AbstractFilter
      *
      * @return bool
      */
-    public function inputHasSensibleOptions()
+    public function inputHasSignificantOptions()
     {
-        if ( ! $this->hasInput() || ! $this->hasSensibleOptions()) {
+        if ( ! $this->hasInput() || ! $this->hasSignificantOptions()) {
             return false;
         }
 
         foreach ($this->input as $option) {
-            if ($this->isSensible($option)) {
+            if ($this->optionIsSignificant($option)) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Get whether the value is active.
+     *
+     * @param mixed $option
+     *
+     * @return bool
+     */
+    public function inputHasOption($option)
+    {
+        return in_array($option, $this->input);
     }
 
     /**
@@ -114,9 +125,9 @@ class OptionalFilter extends AbstractFilter
     {
         if ( ! $this->hasInput()) return false;
 
-        $reference = is_null($this->available)
+        $reference = is_null($this->significantOptions)
             ? $this->options
-            : $this->available;
+            : $this->significantOptions;
 
         return count(array_diff(array_keys($reference), (array)$this->input)) == 0;
     }
@@ -134,26 +145,59 @@ class OptionalFilter extends AbstractFilter
     }
 
     /**
-     * Get whether there are some sensible options available.
+     * Get whether there are some significant options available.
      *
      * @return bool
      */
-    public function hasSensibleOptions()
+    public function hasSignificantOptions()
     {
-        return is_null($this->available) || ! empty($this->available);
+        return is_null($this->significantOptions) ||
+               ! empty($this->significantOptions);
     }
 
     /**
-     * Get whether the option is sensible.
+     * Get whether the option changes the result set if selected.
      *
      * @param mixed $option
      *
      * @return bool
      */
-    public function isSensible($option)
+    public function optionIsSignificant($option)
     {
-        return is_null($this->available) ||
-               array_key_exists($option, $this->available);
+        return is_null($this->significantOptions) ||
+               array_key_exists($option, $this->significantOptions);
+    }
+
+    /**
+     * Get the number of items that have specified option.
+     *
+     * @param mixed $option
+     *
+     * @return int
+     */
+    public function optionFrequency($option)
+    {
+        if ( ! $this->hasOption($option)) return null;
+
+        $source = is_null($this->significantOptions)
+            ? $this->options
+            : $this->significantOptions;
+
+        return Arr::get($source, $option, 0);
+    }
+
+    /**
+     * Get frequency of all options in total.
+     *
+     * @return int
+     */
+    public function totalFrequency()
+    {
+        $source = is_null($this->significantOptions)
+            ? $this->options
+            : $this->significantOptions;
+
+        return array_sum($source);
     }
 
     /**
@@ -161,7 +205,7 @@ class OptionalFilter extends AbstractFilter
      */
     public function hasInput()
     {
-        return isset($this->input) and ! empty($this->input);
+        return ! empty($this->input);
     }
 
     /**
@@ -175,33 +219,13 @@ class OptionalFilter extends AbstractFilter
     }
 
     /**
-     * Get available options.
+     * Get significant options.
      *
      * @return array
      */
-    public function getAvailableOptions()
+    public function getSignificantOptions()
     {
-        return $this->available;
-    }
-
-    /**
-     * Get the number of items that have specified option.
-     *
-     * @param mixed $option
-     *
-     * @return int
-     */
-    public function getFrequency($option)
-    {
-        $source = is_null($this->available) ? $this->options : $this->available;
-
-        if (is_null($option)) {
-            return array_sum($source);
-        }
-
-        if ( ! isset($this->options[$option])) return null;
-
-        return Arr::get($source, $option, 0);
+        return $this->significantOptions;
     }
 
     /**
@@ -211,5 +235,6 @@ class OptionalFilter extends AbstractFilter
     {
         return $this->hasOptions(2);
     }
+
 
 }

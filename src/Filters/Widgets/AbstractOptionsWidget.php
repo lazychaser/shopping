@@ -58,7 +58,7 @@ abstract class AbstractOptionsWidget extends AbstractControlWidget
      */
     protected function renderFrequency($frequency)
     {
-        return $frequency && $this->frequency
+        return $frequency
             ? '<span class="frequency">'.$frequency.'</span>'
             : '';
     }
@@ -88,5 +88,15 @@ abstract class AbstractOptionsWidget extends AbstractControlWidget
      * @return string
      */
     abstract protected function getBaseContainerClass();
+
+    /**
+     * @param $frequency
+     *
+     * @return bool
+     */
+    protected function shouldRenderFrequency($frequency)
+    {
+        return $this->frequency && $frequency !== null;
+    }
 
 }

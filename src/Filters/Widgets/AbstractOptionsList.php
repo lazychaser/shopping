@@ -27,6 +27,8 @@ abstract class AbstractOptionsList extends AbstractOptionsWidget
     public $template = '<ul class="{class}">{items}</ul>';
 
     /**
+     * Whether to allow html for option label.
+     * 
      * @var bool
      */
     public $html = true;
@@ -50,7 +52,11 @@ abstract class AbstractOptionsList extends AbstractOptionsWidget
     protected function renderItem(Option $option)
     {
         $class = $this->getItemClass($option);
-        $frequency = $this->renderFrequency($option->frequency);
+        
+        $frequency = $this->shouldRenderFrequency($option->frequency)
+            ? $this->renderFrequency($option->frequency) 
+            : '';
+        
         $option = $this->renderOption($option);
 
         return $this->renderTemplate($this->itemTemplate,

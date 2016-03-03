@@ -26,6 +26,14 @@ class Option
      */
     public $active;
 
+    /**
+     * Option constructor.
+     *
+     * @param $value
+     * @param $title
+     * @param int $frequency
+     * @param bool $active
+     */
     public function __construct($value, $title, $frequency = null, $active = null)
     {
         $this->active = $active;
@@ -34,6 +42,11 @@ class Option
         $this->value = $value;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return static
+     */
     public static function fromArray(array $data)
     {
         return new static(Arr::get($data, 'value'),
