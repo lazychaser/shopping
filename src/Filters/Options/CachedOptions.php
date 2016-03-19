@@ -18,8 +18,6 @@ class CachedOptions implements OptionsProvider
      * CachedOptions constructor.
      *
      * @param OptionsProvider $provider
-     * @param int $minutes
-     * @param string $cacheId
      */
     public function __construct(OptionsProvider $provider)
     {

@@ -56,7 +56,7 @@ abstract class AbstractFilter implements Filter
     /**
      * {@inheritdoc}
      */
-    public function gatherInput(array $data)
+    public function collectInput(array $data)
     {
         $this->input = $this->extractInput($data);
 

@@ -12,7 +12,7 @@ class CachingOptionalFilter extends OptionalFilter
     /**
      * @inheritDoc
      */
-    public function gatherData(Builder $query)
+    public function collectData(Builder $query)
     {
         $this->options = $this->remember($this->id.'_options',
             function () use ($query) { return $this->property->values($query); }

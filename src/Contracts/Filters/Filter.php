@@ -10,38 +10,38 @@ use Illuminate\Database\Query\Builder;
 interface Filter
 {
     /**
-     * Gather available data for the filter.
+     * Collect available data for the filter.
      *
-     * @param \Illuminate\Database\Eloquent\Builder|Builder $query
-     *
-     * @return mixed
-     */
-    public function gatherData(Builder $query);
-
-    /**
-     * Gather data that is available with other applied filters.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder|Builder $query
+     * @param Builder $query
      *
      * @return mixed
      */
-    public function gatherSignificantData(Builder $query);
+    public function collectData(Builder $query);
 
     /**
-     * Gather input for the filter.
+     * Collect data that is available with other applied filters.
+     *
+     * @param Builder $query
+     *
+     * @return mixed
+     */
+    public function collectValuableData(Builder $query);
+
+    /**
+     * Collect input for the filter.
      *
      * @param array $data
      *
      * @return bool
      */
-    public function gatherInput(array $data);
+    public function collectInput(array $data);
 
     /**
      * Add constraints based on the collected input.
      *
      * @param \Illuminate\Database\Query\Builder $query
      */
-    public function constraint(Builder $query);
+    public function applyToBuilder(Builder $query);
 
     /**
      * Get the id of the filter.

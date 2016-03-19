@@ -11,18 +11,14 @@ use Illuminate\Support\Arr;
 class OptionalFilter extends AbstractFilter
 {
     /**
-     * The list of options.
-     *
      * @var array
      */
     protected $options = [];
 
     /**
-     * Significant options.
-     *
      * @var null|array
      */
-    protected $significantOptions;
+    protected $valuableOptions;
 
     /**
      * @param $option
@@ -31,7 +27,7 @@ class OptionalFilter extends AbstractFilter
      */
     public function hasOption($option)
     {
-        return isset($this->options[$option]);
+        return array_key_exists($option, $this->options);
     }
 
     /**
@@ -49,7 +45,7 @@ class OptionalFilter extends AbstractFilter
     /**
      * {@inheritdoc}
      */
-    public function gatherData(Builder $query)
+    public function collectData(Builder $query)
     {
         $this->options = $this->property->values($query);
     }
@@ -57,15 +53,15 @@ class OptionalFilter extends AbstractFilter
     /**
      * {@inheritdoc}
      */
-    public function gatherSignificantData(Builder $query)
+    public function collectValuableData(Builder $query)
     {
-        $this->significantOptions = $this->property->values($query);
+        $this->valuableOptions = $this->property->values($query);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function constraint(Builder $query)
+    public function applyToBuilder(Builder $query)
     {
         if ($this->shouldConstraint()) {
             $this->property->whereIn($query, $this->input);
@@ -89,14 +85,14 @@ class OptionalFilter extends AbstractFilter
      *
      * @return bool
      */
-    public function inputHasSignificantOptions()
+    public function inputHasValuableOptions()
     {
-        if ( ! $this->hasInput() || ! $this->hasSignificantOptions()) {
+        if ( ! $this->hasInput() || ! $this->hasValuableOptions()) {
             return false;
         }
 
         foreach ($this->input as $option) {
-            if ($this->optionIsSignificant($option)) {
+            if ($this->optionIsValuable($option)) {
                 return true;
             }
         }
@@ -125,9 +121,7 @@ class OptionalFilter extends AbstractFilter
     {
         if ( ! $this->hasInput()) return false;
 
-        $reference = is_null($this->significantOptions)
-            ? $this->options
-            : $this->significantOptions;
+        $reference = $this->getFrequencySource();
 
         return count(array_diff(array_keys($reference), (array)$this->input)) == 0;
     }
@@ -149,10 +143,10 @@ class OptionalFilter extends AbstractFilter
      *
      * @return bool
      */
-    public function hasSignificantOptions()
+    public function hasValuableOptions()
     {
-        return is_null($this->significantOptions) ||
-               ! empty($this->significantOptions);
+        return is_null($this->valuableOptions) ||
+               ! empty($this->valuableOptions);
     }
 
     /**
@@ -162,10 +156,10 @@ class OptionalFilter extends AbstractFilter
      *
      * @return bool
      */
-    public function optionIsSignificant($option)
+    public function optionIsValuable($option)
     {
-        return is_null($this->significantOptions) ||
-               array_key_exists($option, $this->significantOptions);
+        return is_null($this->valuableOptions) ||
+               array_key_exists($option, $this->valuableOptions);
     }
 
     /**
@@ -179,9 +173,7 @@ class OptionalFilter extends AbstractFilter
     {
         if ( ! $this->hasOption($option)) return null;
 
-        $source = is_null($this->significantOptions)
-            ? $this->options
-            : $this->significantOptions;
+        $source = $this->getFrequencySource();
 
         return Arr::get($source, $option, 0);
     }
@@ -193,9 +185,7 @@ class OptionalFilter extends AbstractFilter
      */
     public function totalFrequency()
     {
-        $source = is_null($this->significantOptions)
-            ? $this->options
-            : $this->significantOptions;
+        $source = $this->getFrequencySource();
 
         return array_sum($source);
     }
@@ -223,9 +213,9 @@ class OptionalFilter extends AbstractFilter
      *
      * @return array
      */
-    public function getSignificantOptions()
+    public function getValuableOptions()
     {
-        return $this->significantOptions;
+        return $this->valuableOptions;
     }
 
     /**
@@ -236,5 +226,14 @@ class OptionalFilter extends AbstractFilter
         return $this->hasOptions(2);
     }
 
+    /**
+     * @return array|null
+     */
+    protected function getFrequencySource()
+    {
+        return is_null($this->valuableOptions)
+            ? $this->options
+            : $this->valuableOptions;
+    }
 
 }

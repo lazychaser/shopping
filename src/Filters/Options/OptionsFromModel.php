@@ -26,11 +26,6 @@ class OptionsFromModel implements OptionsProvider
     protected $title;
 
     /**
-     * @var string
-     */
-    protected $nullLabel;
-
-    /**
      * OptionsFromModel constructor.
      *
      * @param $modelClass
@@ -59,13 +54,21 @@ class OptionsFromModel implements OptionsProvider
             ->findMany($keys, $this->columns)
             ->getDictionary();
 
-        return array_map(function (Model $model) {
-            if (is_string($this->title)) {
-                return $model->getAttribute($model);
-            }
+        return array_map([ $this, 'getModelTitle' ], $models);
+    }
 
-            return call_user_func($this->title, $model);
-        }, $models);
+    /**
+     * @param Model $model
+     *
+     * @return mixed
+     */
+    public function getModelTitle(Model $model)
+    {
+        if (is_string($this->title)) {
+            return $model->getAttribute($this->title);
+        }
+
+        return call_user_func($this->title, $model);
     }
 
     /**
