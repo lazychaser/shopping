@@ -3,7 +3,7 @@
 namespace Kalnoy\Shopping\Filters\Filters;
 
 use Illuminate\Database\Query\Builder;
-use Kalnoy\Shopping\Filters\AllowCaching;
+use Kalnoy\Shopping\Support\AllowCaching;
 
 class CachingOptionalFilter extends OptionalFilter
 {

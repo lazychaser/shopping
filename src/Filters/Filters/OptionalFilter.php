@@ -4,12 +4,15 @@ namespace Kalnoy\Shopping\Filters\Filters;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
+use Kalnoy\Shopping\Support\CreatesCachedVersion;
 
 /**
  * A kind of filter that filters by options.
  */
 class OptionalFilter extends AbstractFilter
 {
+    use CreatesCachedVersion;
+    
     /**
      * @var array
      */
@@ -75,7 +78,7 @@ class OptionalFilter extends AbstractFilter
      */
     public function shouldConstraint()
     {
-        return $this->hasOptions(2) &&
+        return $this->hasData() &&
                $this->hasInput() &&
              ! $this->inputHasAllOptions();
     }
@@ -236,4 +239,11 @@ class OptionalFilter extends AbstractFilter
             : $this->valuableOptions;
     }
 
+    /**
+     * @return mixed
+     */
+    public function createCachedVersion()
+    {
+        return new CachingOptionalFilter($this->id, $this->property);
+    }
 }

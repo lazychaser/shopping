@@ -85,6 +85,8 @@ abstract class AbstractProperty implements Property
     {
         $column = $this->initQuery($query);
 
+        $column = $query->getGrammar()->wrap($column);
+
         foreach ([ 'min', 'max' ] as $func) {
             $query->selectRaw("{$func}({$column}) as $func");
         }

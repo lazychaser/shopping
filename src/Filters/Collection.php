@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection as BaseCollection;
 use Kalnoy\Shopping\Contracts\Filters\Filter;
-use RuntimeException;
+use InvalidArgumentException;
 use Traversable;
 
 /**
@@ -18,7 +18,7 @@ class Collection implements \ArrayAccess, \IteratorAggregate, \Countable
      * @var Filter[]
      */
     protected $items = [];
-    
+
     /**
      * @var bool
      */
@@ -46,12 +46,12 @@ class Collection implements \ArrayAccess, \IteratorAggregate, \Countable
         if ($filter instanceof Filter) {
             $filter = $filter->getId();
         }
-        
+
         return $this->offsetExists($filter);
     }
 
     /**
-     * @param $filter
+     * @param string $filter
      * @param mixed $default
      *
      * @return Filter
@@ -61,7 +61,7 @@ class Collection implements \ArrayAccess, \IteratorAggregate, \Countable
         if ($this->offsetExists($filter)) {
             return $this->items[$filter];
         }
-        
+
         return value($default);
     }
 
@@ -72,12 +72,12 @@ class Collection implements \ArrayAccess, \IteratorAggregate, \Countable
      *
      * @return $this
      *
-     * @throws RuntimeException
+     * @throws InvalidArgumentException
      */
     public function add(Filter $filter)
     {
         if ($this->has($filter)) {
-            throw new RuntimeException("Cannot add filter [{$filter->getId()}] since it is already defined.");
+            throw new InvalidArgumentException("Cannot add filter [{$filter->getId()}] since it is already defined.");
         }
 
         $this->items[$filter->getId()] = $filter;
@@ -291,5 +291,5 @@ class Collection implements \ArrayAccess, \IteratorAggregate, \Countable
     {
         return count($this->items);
     }
-    
+
 }
