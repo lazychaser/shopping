@@ -7,7 +7,7 @@ use Kalnoy\Shopping\Filters\Filters\OptionalFilter;
 use Kalnoy\Shopping\Contracts\Widgets\OptionsTitlesProvider;
 use Kalnoy\Shopping\Filters\Properties\BasicProperty;
 
-class FilterOptions implements OptionsBuilder
+class OptionsFromFilter implements OptionsBuilder
 {
     /**
      * @var string
@@ -47,6 +47,16 @@ class FilterOptions implements OptionsBuilder
         $this->titlesProvider = $titlesProvider;
         $this->prompt = $prompt;
         $this->nullValueLabel = $nullLabel;
+    }
+
+    /**
+     * @param OptionalFilter $filter
+     *
+     * @return static
+     */
+    public static function make(OptionalFilter $filter)
+    {
+        return new static($filter);
     }
 
     /**

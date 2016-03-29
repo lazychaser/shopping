@@ -14,7 +14,7 @@ class SelectControl extends Select
     /**
      * @return string
      */
-    protected function getContainerClass()
+    public function getContainerClass()
     {
         return parent::getContainerClass().' form-control'.($this->size ? ' input-'.$this->size : '');
     }

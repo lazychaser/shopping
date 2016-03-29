@@ -21,7 +21,7 @@ class FormGroup extends AbstractWrapper
     {
         $label = $this->presentLabel();
 
-        return '<div class="form-group">'.$label.$this->renderInner().'</div>';
+        return '<div class="form-group">'.PHP_EOL.$label.$this->renderInner().'</div>';
     }
 
     /**

@@ -18,6 +18,18 @@ class TabPane extends AbstractWrapper
     public $title;
 
     /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function title($value)
+    {
+        $this->title = $value;
+        
+        return $this;
+    }
+
+    /**
      * Get the evaluated contents of the object.
      *
      * @return string
@@ -32,7 +44,7 @@ class TabPane extends AbstractWrapper
      */
     public function getTitle()
     {
-        return $this->title;
+        return $this->title ?: $this->getId();
     }
 
     /**

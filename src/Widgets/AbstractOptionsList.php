@@ -28,10 +28,22 @@ abstract class AbstractOptionsList extends AbstractOptionsWidget
 
     /**
      * Whether to allow html for option label.
-     * 
+     *
      * @var bool
      */
-    public $html = true;
+    public $html = false;
+
+    /**
+     * @param bool $value
+     *
+     * @return $this
+     */
+    public function html($value = true)
+    {
+        $this->html = $value;
+        
+        return $this;
+    }
 
     /**
      * @return string
@@ -52,11 +64,11 @@ abstract class AbstractOptionsList extends AbstractOptionsWidget
     protected function renderItem(OptionContract $option)
     {
         $class = $this->getItemClass($option);
-        
+
         $frequency = $this->shouldRenderFrequency($option->getFrequency())
-            ? $this->renderFrequency($option->getFrequency()) 
+            ? $this->renderFrequency($option->getFrequency())
             : '';
-        
+
         $option = $this->renderOption($option);
 
         return $this->renderTemplate($this->itemTemplate,
@@ -107,32 +119,15 @@ abstract class AbstractOptionsList extends AbstractOptionsWidget
      *
      * @return string
      */
-    protected function getItemClass(OptionContract $option)
+    public function getItemClass(OptionContract $option)
     {
         return implode(' ', $this->getItemClasses($option));
     }
 
     /**
-     * @param OptionContract $option
-     *
-     * @return bool
-     */
-    protected function isActive(OptionContract $option)
-    {
-        if ($option->isActive() !== null) {
-            return $option->isActive();
-        }
-
-        $input = \Input::get($this->id);
-        $value = $option->getValue();
-
-        return is_array($input) ? in_array($value, $input) : $value == $input;
-    }
-
-    /**
      * @return string
      */
-    protected function getActiveClass()
+    public function getActiveClass()
     {
         return $this->getBaseItemClass().'--'.$this->activeClass;
     }
@@ -140,7 +135,7 @@ abstract class AbstractOptionsList extends AbstractOptionsWidget
     /**
      * @return string
      */
-    protected function getMutedClass()
+    public function getMutedClass()
     {
         return $this->getBaseItemClass().'--'.$this->mutedClass;
     }
@@ -150,7 +145,7 @@ abstract class AbstractOptionsList extends AbstractOptionsWidget
      *
      * @return string
      */
-    protected function getValueClass($value)
+    public function getValueClass($value)
     {
         return 'value__'.$value;
     }

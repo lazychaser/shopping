@@ -7,7 +7,7 @@ trait OverrideClasses
     /**
      * @return string
      */
-    protected function getActiveClass()
+    public function getActiveClass()
     {
         return $this->activeClass;
     }
@@ -15,7 +15,7 @@ trait OverrideClasses
     /**
      * @return string
      */
-    protected function getMutedClass()
+    public function getMutedClass()
     {
         return $this->mutedClass;
     }

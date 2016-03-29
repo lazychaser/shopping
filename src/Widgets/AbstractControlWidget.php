@@ -21,6 +21,17 @@ abstract class AbstractControlWidget extends AbstractWidget
     }
 
     /**
+     * @param string $id
+     * @param array $options
+     *
+     * @return static
+     */
+    public static function make($id, array $options = [])
+    {
+        return new static($id, $options);
+    }
+
+    /**
      * @return string
      */
     public function getId()
@@ -31,7 +42,7 @@ abstract class AbstractControlWidget extends AbstractWidget
     /**
      * @return string
      */
-    final public function getContainerUniqueClass()
+    public function getContainerUniqueClass()
     {
         return 'AppFilter--'.$this->id;
     }

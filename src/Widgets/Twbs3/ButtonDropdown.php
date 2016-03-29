@@ -2,6 +2,7 @@
 
 namespace Kalnoy\Shopping\Widgets\Twbs3;
 
+use Kalnoy\Shopping\Contracts\Widgets\Option as OptionContract;
 use Kalnoy\Shopping\Widgets\LinkList;
 
 class ButtonDropdown extends LinkList
@@ -9,14 +10,19 @@ class ButtonDropdown extends LinkList
     use UsesButtons, OverrideClasses;
 
     /**
-     * @var string
+     * @var bool
      */
-    public $multipleChoiceTitle = 'Multiple choice';
+    public $multiple = false;
 
     /**
      * @var string
      */
-    public $template = '<div class="{class}">{button}<ul class="dropdown-menu">{items}</ul></div>';
+    public $title;
+
+    /**
+     * @var string
+     */
+    public $glue = ', ';
 
     /**
      * @return string
@@ -24,11 +30,49 @@ class ButtonDropdown extends LinkList
     public function render()
     {
         $items = $this->renderItems();
-        $class = $this->getContainerClass().' '.$this->getContainerUniqueClass();
+        $class = $this->getContainerClass();
         $button = $this->renderButton();
 
-        return $this->renderTemplate($this->template,
-                                     compact('items', 'class', 'button'));
+        return '<div class="'.$class.'">'.PHP_EOL.
+                    $button.PHP_EOL.
+                    '<ul class="dropdown-menu">'.$items.'</ul>'.PHP_EOL.
+               '</div>';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function renderItem(OptionContract $option)
+    {
+        $class = $this->getItemClass($option);
+
+        return '<li class="'.$class.'">'.PHP_EOL.
+                    $this->renderOption($option).PHP_EOL.
+               '</li>';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function renderFrequency($frequency)
+    {
+        return $frequency
+            ? '<span class="badge">'.$frequency.'</span>'
+            : '';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function renderOption(OptionContract $option)
+    {
+        $href = $this->getHref($option);
+        $title = $this->html ? $option->getTitle() : e($option->getTitle());
+        $badge = $this->shouldRenderFrequency($option->getFrequency())
+            ? $this->renderFrequency($option->getFrequency())
+            : '';
+
+        return '<a href="'.$href.'">'.$title.$badge.'</a>';
     }
 
     /**
@@ -54,19 +98,21 @@ class ButtonDropdown extends LinkList
      */
     private function getActiveOptionTitle()
     {
+        $active = [];
+
         foreach ($this->items as $item) {
             if ($this->isActive($item)) {
-                return $item->getTitle();
+                $active[] = $this->html ? $item->getTitle() : e($item->getTitle());
             }
         }
 
-        return '<INVALID>';
+        return empty($active) ? $this->getTitle() : implode($this->glue, $active);
     }
 
     /**
      * @return string
      */
-    protected function getContainerClass()
+    public function getContainerClass()
     {
         return parent::getContainerClass().' '.$this->getButtonGroupClass();
     }
@@ -74,9 +120,40 @@ class ButtonDropdown extends LinkList
     /**
      * @inheritDoc
      */
-    protected function getBaseContainerClass()
+    public function getBaseContainerClass()
     {
         return 'DropdownButtonFilter';
     }
 
+    /**
+     * @return mixed
+     */
+    protected function getTitle()
+    {
+        return $this->title ?: $this->id;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function title($value)
+    {
+        $this->title = $value;
+        
+        return $this;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function glue($value)
+    {
+        $this->glue = $value;
+        
+        return $this;
+    }
 }

@@ -7,7 +7,7 @@ use Kalnoy\Shopping\Contracts\Widgets\Option as OptionContract;
 
 class ButtonCheckableList extends CheckableList
 {
-    use UsesButtons;
+    use UsesButtons, OverrideClasses;
 
     /**
      * @var string
@@ -17,21 +17,21 @@ class ButtonCheckableList extends CheckableList
     /**
      * @var string
      */
-    public $itemTemplate = '<label class="{class}">{option}{frequency}</label>';
+    public $itemTemplate = '<label class="{class}">'.PHP_EOL.'{option}{frequency}'.PHP_EOL.'</label>';
 
     /**
      * @inheritDoc
      */
     protected function getItemClasses(OptionContract $option)
     {
-        return array_merge(parent::getItemClasses($option), 
-                           $this->getButtonClasses());
+        return array_merge(parent::getItemClasses($option),
+                               $this->getButtonClasses());
     }
 
     /**
      * @return string
      */
-    protected function getContainerClass()
+    public function getContainerClass()
     {
         return parent::getContainerClass().' '.$this->getButtonGroupClass();
     }
@@ -39,9 +39,17 @@ class ButtonCheckableList extends CheckableList
     /**
      * @inheritDoc
      */
-    protected function getBaseContainerClass()
+    public function getBaseContainerClass()
     {
         return 'CheckableButtonsFilter';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getCheckableClass()
+    {
+        return $this->getCheckableType();
     }
 
 }

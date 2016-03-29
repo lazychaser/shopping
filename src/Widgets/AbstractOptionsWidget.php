@@ -2,6 +2,7 @@
 
 namespace Kalnoy\Shopping\Widgets;
 
+use Illuminate\Http\Request;
 use Kalnoy\Shopping\Widgets\Options\Option;
 use Kalnoy\Shopping\Contracts\Widgets\OptionsBuilder;
 use Kalnoy\Shopping\Contracts\Widgets\Option as OptionContract;
@@ -11,14 +12,14 @@ abstract class AbstractOptionsWidget extends AbstractControlWidget
     /**
      * The list of options.
      *
-     * @var array|OptionContract[]
+     * @var array|OptionContract[]|OptionsBuilder
      */
     public $items = [ ];
 
     /**
      * @var bool
      */
-    public $frequency = true;
+    public $renderFrequency = true;
 
     /**
      * @var bool
@@ -26,18 +27,63 @@ abstract class AbstractOptionsWidget extends AbstractControlWidget
     public $multiple = true;
 
     /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @param array|OptionsBuilder $value
+     *
+     * @return $this
+     */
+    public function items($value)
+    {
+        $this->items = $value;
+        
+        return $this;
+    }
+    
+    /**
+     * Specify whether multiple options selection is allowed.
+     *
+     * @param bool $value
+     *
+     * @return $this
+     */
+    public function multiple($value = true)
+    {
+        $this->multiple = $value;
+
+        return $this;
+    }
+
+    /**
+     * Specify whether the frequency should be displayed.
+     *
+     * @param bool $value
+     *
+     * @return $this
+     */
+    public function hideFrequency($value = true)
+    {
+        $this->renderFrequency = ! $value;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
-    protected function renderItems()
+    public function renderItems()
     {
-        $html = '';
+        $html = PHP_EOL;
 
         foreach ($this->getArrayableItems() as $item) {
             if (is_array($item)) {
                 $item = Option::fromArray($item);
             }
 
-            $html .= $this->renderItem($item);
+            $html .= $this->renderItem($item).PHP_EOL;
         }
 
         return $html;
@@ -49,6 +95,30 @@ abstract class AbstractOptionsWidget extends AbstractControlWidget
      * @return string
      */
     abstract protected function renderItem(OptionContract $option);
+
+    /**
+     * @param OptionContract $option
+     *
+     * @return bool
+     */
+    public function isActive(OptionContract $option)
+    {
+        if ($option->isActive() !== null) {
+            return $option->isActive();
+        }
+
+        if (null === $value = $option->getValue()) {
+            return false;
+        }
+
+        if ( ! $input = $this->getRequest()) {
+            return false;
+        }
+
+        $input = $input->get($this->id);
+
+        return is_array($input) ? in_array($value, $input) : $value == $input;
+    }
 
     /**
      * @param $frequency
@@ -77,7 +147,7 @@ abstract class AbstractOptionsWidget extends AbstractControlWidget
     /**
      * @return string
      */
-    protected function getContainerClass()
+    public function getContainerClass()
     {
         return $this->getBaseContainerClass().' '.
                $this->getContainerUniqueClass();
@@ -86,7 +156,7 @@ abstract class AbstractOptionsWidget extends AbstractControlWidget
     /**
      * @return string
      */
-    abstract protected function getBaseContainerClass();
+    abstract public function getBaseContainerClass();
 
     /**
      * @param $frequency
@@ -95,7 +165,26 @@ abstract class AbstractOptionsWidget extends AbstractControlWidget
      */
     protected function shouldRenderFrequency($frequency)
     {
-        return $this->frequency && $frequency !== null;
+        return $this->renderFrequency && $frequency !== null;
     }
 
+    /**
+     * @param Request $request
+     *
+     * @return $this
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request ?: app(Request::class);
+    }
 }

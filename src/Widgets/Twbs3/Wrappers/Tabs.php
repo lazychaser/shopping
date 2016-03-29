@@ -18,6 +18,21 @@ class Tabs extends AbstractWidget
     public $activate;
 
     /**
+     * @var string
+     */
+    public $navClass = 'nav nav-tabs';
+
+    /**
+     * @var string
+     */
+    public $tabContentClass = 'tab-content';
+
+    /**
+     * @var string
+     */
+    public $tabPaneClass = 'tab-pane';
+
+    /**
      * @var TabPane
      */
     private $activePane;
@@ -41,10 +56,10 @@ class Tabs extends AbstractWidget
      */
     public function render()
     {
-        $nav = $this->renderNav();
-        $content = $this->renderContent();
+        $nav = $this->renderNav().PHP_EOL;
+        $content = $this->renderContent().PHP_EOL;
 
-        return '<div>'.$nav.$content.'</div>';
+        return '<div>'.PHP_EOL.$nav.$content.'</div>';
     }
 
     /**
@@ -52,7 +67,7 @@ class Tabs extends AbstractWidget
      */
     protected function renderNav()
     {
-        return '<ul class="nav nav-tabs">'.$this->renderNavItems().'</ul>';
+        return '<ul class="'.$this->navClass.'">'.PHP_EOL.$this->renderNavItems().'</ul>';
     }
 
     /**
@@ -60,7 +75,7 @@ class Tabs extends AbstractWidget
      */
     protected function renderContent()
     {
-        return '<div class="tab-content">'.$this->renderPanes().'</div>';
+        return '<div class="'.$this->tabContentClass.'">'.PHP_EOL.$this->renderPanes().'</div>';
     }
 
     /**
@@ -69,7 +84,7 @@ class Tabs extends AbstractWidget
     protected function renderNavItems()
     {
         return array_reduce($this->items, function ($html, $item) {
-            return $html.$this->renderNavItem($item);
+            return $html.$this->renderNavItem($item).PHP_EOL;
         }, '');
     }
 
@@ -80,9 +95,21 @@ class Tabs extends AbstractWidget
      */
     protected function renderNavItem(TabPane $tabPane)
     {
-        $class = $this->isActive($tabPane) ? ' class="active"' : '';
+        if ($class = $this->getTabPaneNavClass($tabPane)) {
+            $class = ' class="'.$class.'"';
+        }
 
         return '<li'.$class.'><a href="#'.$tabPane->getId().'" data-toggle="tab">'.$tabPane->getTitle().'</a></li>';
+    }
+
+    /**
+     * @param TabPane $tabPane
+     *
+     * @return string
+     */
+    protected function getTabPaneNavClass(TabPane $tabPane)
+    {
+        return $this->isActive($tabPane) ? 'active' : '';
     }
 
     /**
@@ -91,7 +118,7 @@ class Tabs extends AbstractWidget
     protected function renderPanes()
     {
         return array_reduce($this->items, function ($html, $item) {
-            return $html.$this->renderPane($item);
+            return $html.$this->renderPane($item).PHP_EOL;
         }, '');
     }
 
@@ -112,9 +139,23 @@ class Tabs extends AbstractWidget
      */
     protected function renderPane(TabPane $tabPane)
     {
-        $active = $this->isActive($tabPane) ? ' active' : '';
+        return '<div class="'.$this->getTabPaneClass($tabPane).'" id="'.$tabPane->getId().'">'.$tabPane->render().'</div>';
+    }
 
-        return '<div class="tab-pane'.$active.'" id="'.$tabPane->getId().'">'.$tabPane->render().'</div>';
+    /**
+     * @param TabPane $tabPane
+     *
+     * @return string
+     */
+    protected function getTabPaneClass(TabPane $tabPane)
+    {
+        $class = $this->tabPaneClass;
+
+        if ($this->isActive($tabPane)) {
+            $class .= ' active';
+        }
+
+        return $class;
     }
 
     /**

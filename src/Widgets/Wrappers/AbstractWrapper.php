@@ -13,6 +13,20 @@ abstract class AbstractWrapper extends AbstractWidget
     public $inner;
 
     /**
+     * @param Renderable $inner
+     *
+     * @return static
+     */
+    public static function wrap(Renderable $inner)
+    {
+        $instance = new static;
+        
+        $instance->inner = $inner;
+        
+        return $instance;
+    }
+
+    /**
      * @return string
      */
     protected function renderInner()

@@ -12,6 +12,11 @@ use Kalnoy\Shopping\Contracts\Widgets\Option as OptionContract;
 class Select extends AbstractOptionsWidget
 {
     /**
+     * @var bool
+     */
+    public $multiple = false;
+
+    /**
      * Get the evaluated contents of the object.
      *
      * @return string
@@ -20,8 +25,9 @@ class Select extends AbstractOptionsWidget
     {
         $class = $this->getContainerClass();
         $name = $this->id;
+        $multiple = $this->multiple ? ' multiple="multiple"' : '';
 
-        return '<select class="'.$class.'" name="'.$name.'">'.$this->renderItems().'</select>';
+        return '<select class="'.$class.'" name="'.$name.'"'.$multiple.'>'.$this->renderItems().'</select>';
     }
 
     /**
@@ -31,7 +37,7 @@ class Select extends AbstractOptionsWidget
      */
     protected function renderItem(OptionContract $option)
     {
-        $selected = $option ? ' selected="selected"' : '';
+        $selected = $this->isActive($option) ? ' selected="selected"' : '';
 
         $content = e($option->getTitle());
 
@@ -55,7 +61,7 @@ class Select extends AbstractOptionsWidget
     /**
      * @return string
      */
-    protected function getBaseContainerClass()
+    public function getBaseContainerClass()
     {
         return 'SelectFilter';
     }

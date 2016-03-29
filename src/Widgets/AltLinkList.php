@@ -10,7 +10,7 @@ class AltLinkList extends LinkList
     /**
      * @var string
      */
-    public $itemTemplate = '<a href="{href}" class="{class}">{title}{frequency}</a>';
+    public $itemTemplate = '<a href="{href}" class="{class}">{option}{frequency}</a>';
 
     /**
      * @var string
@@ -26,20 +26,31 @@ class AltLinkList extends LinkList
     {
         $href = $this->getHref($option);
         $class = $this->getItemClass($option);
-        $title = $this->html ? $option->getTitle() : e($option->getTitle());
-        
+
         $frequency = $this->shouldRenderFrequency($option->getFrequency()) 
             ? $this->renderFrequency($option->getFrequency())
             : '';
+        
+        $option = $this->renderOption($option);
 
-        return $this->renderTemplate($this->itemTemplate,
-                                     compact('href', 'class', 'title', 'frequency'));
+        return $this->renderTemplate($this->itemTemplate, compact('href', 
+                                                                  'class',
+                                                                  'option', 
+                                                                  'frequency'));
     }
 
     /**
      * @inheritDoc
      */
-    protected function getBaseContainerClass()
+    protected function renderOption(OptionContract $option)
+    {
+        return $this->html ? $option->getTitle() : e($option->getTitle());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBaseContainerClass()
     {
         return 'AltLinksFilter';
     }

@@ -13,7 +13,7 @@ class CheckableList extends AbstractOptionsList
     /**
      * @var string
      */
-    public $itemTemplate = '<div class="{class}"><label>{option}{frequency}</label></div>';
+    public $itemTemplate = '<li class="{class}"><label>'.PHP_EOL.'{option}{frequency}'.PHP_EOL.'</label></li>';
 
     /**
      * @param OptionContract $option
@@ -34,7 +34,7 @@ class CheckableList extends AbstractOptionsList
 
         $title = $this->renderTitle($option->getTitle());
 
-        return '<input type="'.$type.'" value="'.$option->getValue().'" name="'.$filterId.'" id="'.$id.'" '.$checked.'> '.$title;
+        return '<input type="'.$type.'" value="'.$option->getValue().'" name="'.$filterId.'" id="'.$id.'"'.$checked.'>'.PHP_EOL.$title;
     }
 
     /**
@@ -60,15 +60,19 @@ class CheckableList extends AbstractOptionsList
     /**
      * @inheritDoc
      */
-    protected function getItemClass(OptionContract $option)
+    protected function getItemClasses(OptionContract $option)
     {
-        return parent::getItemClass($option).' '.$this->getCheckableType();
+        $classes = parent::getItemClasses($option);
+
+        $classes[] = $this->getCheckableClass();
+
+        return $classes;
     }
 
     /**
      * @return string
      */
-    protected function getBaseContainerClass()
+    public function getBaseContainerClass()
     {
         return 'CheckableFilter';
     }
@@ -81,5 +85,13 @@ class CheckableList extends AbstractOptionsList
     protected function getInputId($key)
     {
         return $this->id.'__'.$key;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCheckableClass()
+    {
+        return $this->getBaseItemClass().'--'.$this->getCheckableType();
     }
 }

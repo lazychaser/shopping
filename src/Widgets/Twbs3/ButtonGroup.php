@@ -21,7 +21,7 @@ class ButtonGroup extends AltLinkList
     /**
      * @return string
      */
-    protected function getContainerClass()
+    public function getContainerClass()
     {
         return parent::getContainerClass().' '.$this->getButtonGroupClass();
     }

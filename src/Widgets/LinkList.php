@@ -9,12 +9,53 @@ class LinkList extends AbstractOptionsList
     /**
      * @var array
      */
-    public $input = [];
+    public $params = [];
 
     /**
      * @var string
      */
     public $baseUrl;
+
+    /**
+     * Set additional parameters that will be appended to the link query params.
+     *
+     * @param array $params
+     *
+     * @return $this
+     */
+    public function params(array $params)
+    {
+        $this->params = $params;
+
+        return $this;
+    }
+
+    /**
+     * Append a parameter.
+     * 
+     * @param string $key
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function param($key, $value)
+    {
+        $this->params = array_merge_recursive($this->params, [ $key => $value ]);
+
+        return $this;
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return $this
+     */
+    public function baseUrl($value)
+    {
+        $this->baseUrl = $value;
+
+        return $this;
+    }
 
     /**
      * @param OptionContract $option
@@ -39,7 +80,7 @@ class LinkList extends AbstractOptionsList
     {
         $params = $this->getLinkParams($option);
 
-        $params = $params ? '?'.http_build_query($params) : '';
+        $params = $params ? '?'.http_build_query($params, null, '&amp;') : '';
 
         return $this->getBaseUrl().$params;
     }
@@ -47,7 +88,7 @@ class LinkList extends AbstractOptionsList
     /**
      * @return string
      */
-    protected function getBaseContainerClass()
+    public function getBaseContainerClass()
     {
         return 'LinksFilter';
     }
@@ -59,36 +100,30 @@ class LinkList extends AbstractOptionsList
      */
     protected function getLinkParams(OptionContract $option)
     {
-        $params = $this->input;
-        
-        $option = $option->getValue();
+        $params = $this->params;
 
-        if (is_null($option)) {
-            unset($params[$this->id]);
+        unset($params[$this->id]);
 
+        if (is_null($option->getValue())) {
             return $params;
         }
 
         if ($this->multiple) {
-            if (isset($params[$this->id]) &&
-                in_array($option, $params[$this->id])
-            ) {
-                $params[$this->id] = array_diff($params[$this->id], [ $option ]);
+            $activeItems = [];
 
-                if (empty($params[$this->id])) {
-                    unset($params[$this->id]);
+            foreach ($this->items as $item) {
+                if ($item != $option && $item->isActive() ||
+                    $item == $option && ! $item->isActive()
+                ) {
+                    $activeItems[] = $item->getValue();
                 }
-            } else {
-                $params[$this->id][] = $option;
             }
 
-            return $params;
-        }
-
-        if (isset($params[$this->id]) && $params[$this->id] == $option) {
-            unset($params[$this->id]);
-        } else {
-            $params[$this->id] = $option;
+            if ($activeItems) {
+                $params[$this->id] = $activeItems;
+            }
+        } elseif ( ! $option->isActive()) {
+            $params[$this->id] = $option->getValue();
         }
 
         return $params;
@@ -99,6 +134,14 @@ class LinkList extends AbstractOptionsList
      */
     public function getBaseUrl()
     {
-        return $this->baseUrl ?: \Input::url();
+        if ($this->baseUrl) {
+            return $this->baseUrl;
+        }
+
+        if ( ! $request = $this->getRequest()) {
+            return null;
+        }
+
+        return $request->url();
     }
 }

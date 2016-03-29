@@ -17,7 +17,9 @@ class Helpers
     public static function configure($object, array $properties)
     {
         foreach ($properties as $property => $value) {
-            $method = 'set'.Str::studly($property);
+            $property = Str::camel($property);
+            
+            $method = 'set'.ucfirst($property);
             
             if (method_exists($object, $method)) {
                 $object->$method($value);
