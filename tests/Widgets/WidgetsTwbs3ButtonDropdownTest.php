@@ -4,7 +4,7 @@ class WidgetsTwbs3ButtonDropdownTest extends PHPUnit_Framework_TestCase
 {
     public function testHelperSetters()
     {
-        $list = new \Kalnoy\Shopping\Widgets\Twbs3\ButtonDropdown('id');
+        $list = new \Lazychaser\Shopping\Widgets\Twbs3\ButtonDropdown('id');
         
         $list = $list->title('title')->glue('glue');
         
@@ -14,7 +14,7 @@ class WidgetsTwbs3ButtonDropdownTest extends PHPUnit_Framework_TestCase
     
     public function testRendersTitleWhenNoActiveOptions()
     {
-        $list = new \Kalnoy\Shopping\Widgets\Twbs3\ButtonDropdown('id', [
+        $list = new \Lazychaser\Shopping\Widgets\Twbs3\ButtonDropdown('id', [
             'title' => 'Title',
             'buttonSize' => 'lg',
             'buttonType' => 'primary',
@@ -31,11 +31,11 @@ class WidgetsTwbs3ButtonDropdownTest extends PHPUnit_Framework_TestCase
 
     public function testRendersMultipleSelection()
     {
-        $list = new \Kalnoy\Shopping\Widgets\Twbs3\ButtonDropdown('id', [
+        $list = new \Lazychaser\Shopping\Widgets\Twbs3\ButtonDropdown('id', [
             'items' => [
-                new \Kalnoy\Shopping\Widgets\Options\Option('foo', 'Foo', null, true),
-                new \Kalnoy\Shopping\Widgets\Options\Option('bar', 'Bar', 2, true),
-                new \Kalnoy\Shopping\Widgets\Options\Option('baz', 'Baz', 0, false),
+                new \Lazychaser\Shopping\Widgets\Options\Option('foo', 'Foo', null, true),
+                new \Lazychaser\Shopping\Widgets\Options\Option('bar', 'Bar', 2, true),
+                new \Lazychaser\Shopping\Widgets\Options\Option('baz', 'Baz', 0, false),
             ],
 
             'multiple' => true,

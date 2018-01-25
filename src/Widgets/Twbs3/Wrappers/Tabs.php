@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets\Twbs3\Wrappers;
+namespace Lazychaser\Shopping\Widgets\Twbs3\Wrappers;
 
 use Illuminate\Support\Arr;
-use Kalnoy\Shopping\Widgets\AbstractWidget;
+use Lazychaser\Shopping\Widgets\AbstractWidget;
 
 class Tabs extends AbstractWidget
 {
@@ -168,7 +168,7 @@ class Tabs extends AbstractWidget
         }
 
         if ($this->activate) {
-            $this->activePane = Arr::first($this->items, function ($key, $item) {
+            $this->activePane = Arr::first($this->items, function ($item) {
                 return $item->getId() == $this->activate;
             });
         }

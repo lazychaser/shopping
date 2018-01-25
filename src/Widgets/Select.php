@@ -1,13 +1,13 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets;
+namespace Lazychaser\Shopping\Widgets;
 
-use Kalnoy\Shopping\Contracts\Widgets\Option as OptionContract;
+use Lazychaser\Shopping\Contracts\Widgets\Option as OptionContract;
 
 /**
  * Class Select
  *
- * @package Kalnoy\Shopping\Filters\Widgets
+ * @package Lazychaser\Shopping\Filters\Widgets
  */
 class Select extends AbstractOptionsWidget
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Filters\Properties;
+namespace Lazychaser\Shopping\Filters\Properties;
 
 use Illuminate\Database\Query\Builder;
-use Kalnoy\Shopping\Contracts\Filters\Property;
+use Lazychaser\Shopping\Contracts\Filters\Property;
 
 /**
  * A property that works with specified attribute in the database table.

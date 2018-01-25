@@ -1,8 +1,8 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets\Twbs3;
+namespace Lazychaser\Shopping\Widgets\Twbs3;
 
-use Kalnoy\Shopping\Widgets\Select;
+use Lazychaser\Shopping\Widgets\Select;
 
 class SelectControl extends Select
 {

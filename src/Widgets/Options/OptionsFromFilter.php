@@ -1,11 +1,11 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets\Options;
+namespace Lazychaser\Shopping\Widgets\Options;
 
-use Kalnoy\Shopping\Contracts\Widgets\OptionsBuilder;
-use Kalnoy\Shopping\Filters\Filters\OptionalFilter;
-use Kalnoy\Shopping\Contracts\Widgets\OptionsTitlesProvider;
-use Kalnoy\Shopping\Filters\Properties\BasicProperty;
+use Lazychaser\Shopping\Contracts\Widgets\OptionsBuilder;
+use Lazychaser\Shopping\Filters\Filters\OptionalFilter;
+use Lazychaser\Shopping\Contracts\Widgets\OptionsTitlesProvider;
+use Lazychaser\Shopping\Filters\Properties\BasicProperty;
 
 class OptionsFromFilter implements OptionsBuilder
 {

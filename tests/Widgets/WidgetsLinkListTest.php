@@ -6,7 +6,7 @@ class WidgetsLinkListTest extends PHPUnit_Framework_TestCase
 {
     public function testHelperMethods()
     {
-        $list = new \Kalnoy\Shopping\Widgets\LinkList('id');
+        $list = new \Lazychaser\Shopping\Widgets\LinkList('id');
 
         $list = $list->multiple(false)->html()->items('items')->baseUrl('url')
             ->params([ 'p1' => [ 'foo' ], 'p3' => [ 'foo' ] ])
@@ -23,12 +23,12 @@ class WidgetsLinkListTest extends PHPUnit_Framework_TestCase
 
     public function testRendersNonMultipleOptionsWithNoHtml()
     {
-        $ll = new \Kalnoy\Shopping\Widgets\LinkList('id', [
+        $ll = new \Lazychaser\Shopping\Widgets\LinkList('id', [
             'items' => [
-                new \Kalnoy\Shopping\Widgets\Options\Option('foo', 'Foo>', null, false),
-                new \Kalnoy\Shopping\Widgets\Options\Option('bar', 'Bar', 2, true),
-                new \Kalnoy\Shopping\Widgets\Options\Option('baz', 'Baz', 0, false),
-                new \Kalnoy\Shopping\Widgets\Options\Option(null, 'Reset', null, false),
+                new \Lazychaser\Shopping\Widgets\Options\Option('foo', 'Foo>', null, false),
+                new \Lazychaser\Shopping\Widgets\Options\Option('bar', 'Bar', 2, true),
+                new \Lazychaser\Shopping\Widgets\Options\Option('baz', 'Baz', 0, false),
+                new \Lazychaser\Shopping\Widgets\Options\Option(null, 'Reset', null, false),
             ],
 
             'params' => [ 'id' => 'bar', 'cp' => 'value' ],
@@ -50,10 +50,10 @@ class WidgetsLinkListTest extends PHPUnit_Framework_TestCase
 
     public function testRendersMultipleOptions()
     {
-        $ll = new \Kalnoy\Shopping\Widgets\LinkList('id', [
+        $ll = new \Lazychaser\Shopping\Widgets\LinkList('id', [
             'items' => [
-                new \Kalnoy\Shopping\Widgets\Options\Option('foo', 'Foo', null, true),
-                new \Kalnoy\Shopping\Widgets\Options\Option('bar', 'Bar', null, false),
+                new \Lazychaser\Shopping\Widgets\Options\Option('foo', 'Foo', null, true),
+                new \Lazychaser\Shopping\Widgets\Options\Option('bar', 'Bar', null, false),
             ],
 
             'params' => [ 'id' => [ 'foo' ] ],
@@ -71,9 +71,9 @@ class WidgetsLinkListTest extends PHPUnit_Framework_TestCase
 
     public function testRendersWithHtmlAllowed()
     {
-        $ll = new \Kalnoy\Shopping\Widgets\LinkList('id', [
+        $ll = new \Lazychaser\Shopping\Widgets\LinkList('id', [
             'items' => [
-                new \Kalnoy\Shopping\Widgets\Options\Option('foo', '<b>Foo</b>', null, false),
+                new \Lazychaser\Shopping\Widgets\Options\Option('foo', '<b>Foo</b>', null, false),
             ],
 
             'base_url' => 'url',
@@ -91,9 +91,9 @@ class WidgetsLinkListTest extends PHPUnit_Framework_TestCase
 
     public function testGetsBaseUrlFromRequest()
     {
-        $ll = new \Kalnoy\Shopping\Widgets\LinkList('id', [
+        $ll = new \Lazychaser\Shopping\Widgets\LinkList('id', [
             'items' => [
-                new \Kalnoy\Shopping\Widgets\Options\Option('foo', 'Foo'),
+                new \Lazychaser\Shopping\Widgets\Options\Option('foo', 'Foo'),
             ],
             'multiple' => false,
         ]);
@@ -115,10 +115,10 @@ class WidgetsLinkListTest extends PHPUnit_Framework_TestCase
 
     public function testAltLinkListRenders()
     {
-        $ll = new \Kalnoy\Shopping\Widgets\AltLinkList('id', [
+        $ll = new \Lazychaser\Shopping\Widgets\AltLinkList('id', [
             'items' => [
-                new \Kalnoy\Shopping\Widgets\Options\Option('foo', 'Foo', null, false),
-                new \Kalnoy\Shopping\Widgets\Options\Option('bar', 'Bar', 2, true),
+                new \Lazychaser\Shopping\Widgets\Options\Option('foo', 'Foo', null, false),
+                new \Lazychaser\Shopping\Widgets\Options\Option('bar', 'Bar', 2, true),
             ],
 
             'multiple' => false,

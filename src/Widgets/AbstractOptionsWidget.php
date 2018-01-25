@@ -1,11 +1,11 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets;
+namespace Lazychaser\Shopping\Widgets;
 
 use Illuminate\Http\Request;
-use Kalnoy\Shopping\Widgets\Options\Option;
-use Kalnoy\Shopping\Contracts\Widgets\OptionsBuilder;
-use Kalnoy\Shopping\Contracts\Widgets\Option as OptionContract;
+use Lazychaser\Shopping\Widgets\Options\Option;
+use Lazychaser\Shopping\Contracts\Widgets\OptionsBuilder;
+use Lazychaser\Shopping\Contracts\Widgets\Option as OptionContract;
 
 abstract class AbstractOptionsWidget extends AbstractControlWidget
 {

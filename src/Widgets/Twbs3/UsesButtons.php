@@ -6,7 +6,7 @@
  * Time: 11:22
  */
 
-namespace Kalnoy\Shopping\Widgets\Twbs3;
+namespace Lazychaser\Shopping\Widgets\Twbs3;
 
 trait UsesButtons
 {

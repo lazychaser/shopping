@@ -1,8 +1,8 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets;
+namespace Lazychaser\Shopping\Widgets;
 
-use Kalnoy\Shopping\Contracts\Widgets\Option as OptionContract;
+use Lazychaser\Shopping\Contracts\Widgets\Option as OptionContract;
 
 class LinkList extends AbstractOptionsList
 {
@@ -32,7 +32,7 @@ class LinkList extends AbstractOptionsList
 
     /**
      * Append a parameter.
-     * 
+     *
      * @param string $key
      * @param string $value
      *
@@ -112,8 +112,8 @@ class LinkList extends AbstractOptionsList
             $activeItems = [];
 
             foreach ($this->items as $item) {
-                if ($item != $option && $item->isActive() ||
-                    $item == $option && ! $item->isActive()
+                if ($item !== $option && $item->isActive() ||
+                    $item === $option && ! $item->isActive()
                 ) {
                     $activeItems[] = $item->getValue();
                 }

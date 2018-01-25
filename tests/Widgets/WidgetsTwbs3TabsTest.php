@@ -1,6 +1,6 @@
 <?php
 
-use Kalnoy\Shopping\Widgets\Twbs3\Wrappers\TabPane;
+use Lazychaser\Shopping\Widgets\Twbs3\Wrappers\TabPane;
 use Mockery as m;
 
 class WidgetsTwbs3TabsTest extends PHPUnit_Framework_TestCase
@@ -12,7 +12,7 @@ class WidgetsTwbs3TabsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('id', $pane->getId());
         $this->assertEquals('content', $pane->render());
 
-        $widget = m::mock(\Kalnoy\Shopping\Widgets\AbstractControlWidget::class);
+        $widget = m::mock(\Lazychaser\Shopping\Widgets\AbstractControlWidget::class);
 
         $widget->shouldReceive('getId')->andReturn('id');
 
@@ -33,7 +33,7 @@ class WidgetsTwbs3TabsTest extends PHPUnit_Framework_TestCase
 
     public function testTabPanesRendered()
     {
-        $panes = new \Kalnoy\Shopping\Widgets\Twbs3\Wrappers\Tabs([
+        $panes = new \Lazychaser\Shopping\Widgets\Twbs3\Wrappers\Tabs([
             'items' => [
                 new TabPane([ 'id' => 'foo', 'inner' => 'Foo', 'title' => 'Foo label' ]),
                 new TabPane([ 'id' => 'bar', 'inner' => 'Bar' ]),

@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Filters\Properties;
+namespace Lazychaser\Shopping\Filters\Properties;
 
 use Illuminate\Database\Query\Builder;
-use Kalnoy\Shopping\Contracts\Filters\Property;
+use Lazychaser\Shopping\Contracts\Filters\Property;
 
 abstract class AbstractProperty implements Property
 {
@@ -39,11 +39,10 @@ abstract class AbstractProperty implements Property
         if (($pos = array_search(self::NULL_VALUE, $values, true)) !== false) {
             unset($values[$pos]);
 
-            return $query->whereNested(function (Builder $inner) use (
-                $values, $column
-            ) {
-                $inner->whereIn($column, $values)->orWhereNull($column);
-            });
+            return $query->whereNested(
+                function (Builder $inner) use ($values, $column) {
+                    $inner->whereIn($column, $values)->orWhereNull($column);
+                });
         }
 
         return $query->whereIn($column, $values);

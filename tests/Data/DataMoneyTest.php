@@ -1,6 +1,6 @@
 <?php
 
-use Kalnoy\Shopping\Data\Money;
+use Lazychaser\Shopping\Data\Money;
 use Mockery as m;
 
 class DataMoneyTest extends PHPUnit_Framework_TestCase
@@ -57,7 +57,7 @@ class DataMoneyTest extends PHPUnit_Framework_TestCase
 
     public function testPercentage()
     {
-        $p = m::mock(new \Kalnoy\Shopping\Data\Percents(15));
+        $p = m::mock(new \Lazychaser\Shopping\Data\Percents(15));
 
         $p->shouldReceive('toMultiplier')->once()->andReturn(0.15);
         $p->shouldReceive('calcPercentage')->times(3)->andReturn(15);

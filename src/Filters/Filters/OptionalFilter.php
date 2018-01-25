@@ -1,10 +1,10 @@
 <?php
 
-namespace Kalnoy\Shopping\Filters\Filters;
+namespace Lazychaser\Shopping\Filters\Filters;
 
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
-use Kalnoy\Shopping\Support\CreatesCachedVersion;
+use Lazychaser\Shopping\Support\CreatesCachedVersion;
 
 /**
  * A kind of filter that filters by options.

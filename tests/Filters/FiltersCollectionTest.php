@@ -1,7 +1,7 @@
 <?php
 
-use Kalnoy\Shopping\Contracts\Filters\Filter;
-use Kalnoy\Shopping\Filters\Collection;
+use Lazychaser\Shopping\Contracts\Filters\Filter;
+use Lazychaser\Shopping\Filters\Collection;
 use Mockery as m;
 
 class FiltersCollectionTest extends PHPUnit_Framework_TestCase

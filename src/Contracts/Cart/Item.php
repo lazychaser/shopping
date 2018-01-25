@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Contracts\Cart;
+namespace Lazychaser\Shopping\Contracts\Cart;
 
-use Kalnoy\Shopping\Contracts\Commerce\Product;
-use Kalnoy\Shopping\Data\Money;
+use Lazychaser\Shopping\Contracts\Commerce\Product;
+use Lazychaser\Shopping\Data\Money;
 
 interface Item
 {

@@ -4,10 +4,10 @@ class WidgetsCheckableListTest extends PHPUnit_Framework_TestCase
 {
     public function testRendersCheckboxes()
     {
-        $list = new \Kalnoy\Shopping\Widgets\CheckableList('id', [
+        $list = new \Lazychaser\Shopping\Widgets\CheckableList('id', [
             'items' => [
-                new \Kalnoy\Shopping\Widgets\Options\Option('foo', 'Foo>', null, false),
-                new \Kalnoy\Shopping\Widgets\Options\Option('bar', 'Bar', 2, true),
+                new \Lazychaser\Shopping\Widgets\Options\Option('foo', 'Foo>', null, false),
+                new \Lazychaser\Shopping\Widgets\Options\Option('bar', 'Bar', 2, true),
             ],
         ]);
 
@@ -28,9 +28,9 @@ class WidgetsCheckableListTest extends PHPUnit_Framework_TestCase
 
     public function testRendersRadios()
     {
-        $list = new \Kalnoy\Shopping\Widgets\CheckableList('id', [
+        $list = new \Lazychaser\Shopping\Widgets\CheckableList('id', [
             'items' => [
-                new \Kalnoy\Shopping\Widgets\Options\Option('foo', '<b>Foo</b>', null, false),
+                new \Lazychaser\Shopping\Widgets\Options\Option('foo', '<b>Foo</b>', null, false),
             ],
 
             'multiple' => false,

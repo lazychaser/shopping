@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Filters\Filters;
+namespace Lazychaser\Shopping\Filters\Filters;
 
 use Illuminate\Database\Query\Builder;
-use Kalnoy\Shopping\Support\AllowCaching;
+use Lazychaser\Shopping\Support\AllowCaching;
 
 class CachingOptionalFilter extends OptionalFilter
 {

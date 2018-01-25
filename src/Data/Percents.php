@@ -1,6 +1,6 @@
 <?php
 
-namespace Kalnoy\Shopping\Data;
+namespace Lazychaser\Shopping\Data;
 
 class Percents
 {

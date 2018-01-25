@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets\Options\TitleProviders;
+namespace Lazychaser\Shopping\Widgets\Options\TitleProviders;
 
-use Kalnoy\Shopping\Contracts\Widgets\OptionsTitlesProvider;
-use Kalnoy\Shopping\Support\AllowCaching;
+use Lazychaser\Shopping\Contracts\Widgets\OptionsTitlesProvider;
+use Lazychaser\Shopping\Support\AllowCaching;
 
 class CachedTitles implements OptionsTitlesProvider
 {

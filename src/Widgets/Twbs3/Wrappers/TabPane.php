@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets\Twbs3\Wrappers;
+namespace Lazychaser\Shopping\Widgets\Twbs3\Wrappers;
 
-use Kalnoy\Shopping\Widgets\AbstractControlWidget;
-use Kalnoy\Shopping\Widgets\Wrappers\AbstractWrapper;
+use Lazychaser\Shopping\Widgets\AbstractControlWidget;
+use Lazychaser\Shopping\Widgets\Wrappers\AbstractWrapper;
 
 class TabPane extends AbstractWrapper
 {

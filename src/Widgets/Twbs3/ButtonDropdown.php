@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets\Twbs3;
+namespace Lazychaser\Shopping\Widgets\Twbs3;
 
-use Kalnoy\Shopping\Contracts\Widgets\Option as OptionContract;
-use Kalnoy\Shopping\Widgets\LinkList;
+use Lazychaser\Shopping\Contracts\Widgets\Option as OptionContract;
+use Lazychaser\Shopping\Widgets\LinkList;
 
 class ButtonDropdown extends LinkList
 {

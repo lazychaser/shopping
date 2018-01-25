@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Query\Builder;
-use Kalnoy\Shopping\Filters\Properties\BasicProperty;
+use Lazychaser\Shopping\Filters\Properties\BasicProperty;
 use Mockery as m;
 
 class FiltersBasicPropertyTest extends PHPUnit_Framework_TestCase

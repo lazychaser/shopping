@@ -1,6 +1,6 @@
 <?php
 
-use Kalnoy\Shopping\Data\Percents;
+use Lazychaser\Shopping\Data\Percents;
 
 class DataPercentsTest extends PHPUnit_Framework_TestCase
 {

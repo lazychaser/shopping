@@ -1,6 +1,6 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets;
+namespace Lazychaser\Shopping\Widgets;
 
 abstract class AbstractControlWidget extends AbstractWidget
 {

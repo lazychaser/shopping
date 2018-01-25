@@ -1,11 +1,11 @@
 <?php
 
-namespace Kalnoy\Shopping\Filters;
+namespace Lazychaser\Shopping\Filters;
 
 use Closure;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection as BaseCollection;
-use Kalnoy\Shopping\Contracts\Filters\Filter;
+use Lazychaser\Shopping\Contracts\Filters\Filter;
 use InvalidArgumentException;
 use Traversable;
 

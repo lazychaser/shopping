@@ -1,6 +1,6 @@
 <?php
 
-namespace Kalnoy\Shopping\Contracts\Commerce;
+namespace Lazychaser\Shopping\Contracts\Commerce;
 
 interface Unit
 {

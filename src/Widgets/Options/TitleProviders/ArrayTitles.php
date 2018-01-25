@@ -1,6 +1,6 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets\Options\TitleProviders;
+namespace Lazychaser\Shopping\Widgets\Options\TitleProviders;
 
 class ArrayTitles extends AbstractProvider
 {

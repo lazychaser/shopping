@@ -1,6 +1,6 @@
 <?php
 
-namespace Kalnoy\Shopping\Contracts\Widgets;
+namespace Lazychaser\Shopping\Contracts\Widgets;
 
 interface Option
 {

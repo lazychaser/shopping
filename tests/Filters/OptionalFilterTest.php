@@ -107,8 +107,8 @@ class OptionalFilterTest extends PHPUnit_Framework_TestCase
 
     public function getFilter()
     {
-        $property = m::mock(\Kalnoy\Shopping\Contracts\Filters\Property::class);
+        $property = m::mock(\Lazychaser\Shopping\Contracts\Filters\Property::class);
 
-        return new \Kalnoy\Shopping\Filters\Filters\OptionalFilter('id', $property);
+        return new \Lazychaser\Shopping\Filters\Filters\OptionalFilter('id', $property);
     }
 }

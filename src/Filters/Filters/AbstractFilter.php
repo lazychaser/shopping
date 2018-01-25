@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Filters\Filters;
+namespace Lazychaser\Shopping\Filters\Filters;
 
-use Kalnoy\Shopping\Contracts\Filters\Filter;
-use Kalnoy\Shopping\Contracts\Filters\Property;
+use Lazychaser\Shopping\Contracts\Filters\Filter;
+use Lazychaser\Shopping\Contracts\Filters\Property;
 use Illuminate\Database\Query\Builder;
 
 /**

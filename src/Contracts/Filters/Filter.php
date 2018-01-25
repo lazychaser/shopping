@@ -1,6 +1,6 @@
 <?php
 
-namespace Kalnoy\Shopping\Contracts\Filters;
+namespace Lazychaser\Shopping\Contracts\Filters;
 
 use Illuminate\Database\Query\Builder;
 

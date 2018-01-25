@@ -1,8 +1,8 @@
 <?php
 
-use Kalnoy\Shopping\Filters\Filters\OptionalFilter;
-use Kalnoy\Shopping\Widgets\Options\OptionsFromFilter;
-use Kalnoy\Shopping\Widgets\Options\Option;
+use Lazychaser\Shopping\Filters\Filters\OptionalFilter;
+use Lazychaser\Shopping\Widgets\Options\OptionsFromFilter;
+use Lazychaser\Shopping\Widgets\Options\Option;
 use Mockery as m;
 
 class WidgetsFilterOptionsTest extends PHPUnit_Framework_TestCase
@@ -35,7 +35,7 @@ class WidgetsFilterOptionsTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('default', $builder->getNullValueLabel());
 
-        $provider = m::mock(\Kalnoy\Shopping\Contracts\Widgets\OptionsTitlesProvider::class);
+        $provider = m::mock(\Lazychaser\Shopping\Contracts\Widgets\OptionsTitlesProvider::class);
 
         $builder->nullValueLabel('foo')->addPrompt('bar')->titlesFrom($provider);
 
@@ -78,7 +78,7 @@ class WidgetsFilterOptionsTest extends PHPUnit_Framework_TestCase
         $filter->shouldReceive('optionFrequency')->with('bar')->andReturn(2);
         $filter->shouldReceive('inputHasOption')->with('bar')->andReturn(true);
 
-        $provider = m::mock(\Kalnoy\Shopping\Contracts\Widgets\OptionsTitlesProvider::class);
+        $provider = m::mock(\Lazychaser\Shopping\Contracts\Widgets\OptionsTitlesProvider::class);
 
         $provider->shouldReceive('titlesForOptions')->andReturn([ 'bar' => 'Bar', 'foo' => 'Foo' ]);
 
@@ -118,7 +118,7 @@ class WidgetsFilterOptionsTest extends PHPUnit_Framework_TestCase
     {
         $filter = m::mock(OptionalFilter::class);
 
-        $null = \Kalnoy\Shopping\Filters\Properties\BasicProperty::NULL_VALUE;
+        $null = \Lazychaser\Shopping\Filters\Properties\BasicProperty::NULL_VALUE;
 
         $filter->shouldReceive('getOptions')->andReturn([ $null => 1 ]);
         $filter->shouldReceive('optionFrequency')->with($null)->andReturn(1);

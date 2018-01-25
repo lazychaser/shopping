@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets;
+namespace Lazychaser\Shopping\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
-use Kalnoy\Shopping\Contracts\Widgets\Option as OptionContract;
+use Lazychaser\Shopping\Contracts\Widgets\Option as OptionContract;
 
 /**
  * The widget that renders a list of options.

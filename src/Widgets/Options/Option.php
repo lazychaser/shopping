@@ -1,10 +1,10 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets\Options;
+namespace Lazychaser\Shopping\Widgets\Options;
 
 use Illuminate\Support\Arr;
 
-class Option implements \Kalnoy\Shopping\Contracts\Widgets\Option
+class Option implements \Lazychaser\Shopping\Contracts\Widgets\Option
 {
     /**
      * @var string

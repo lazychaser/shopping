@@ -1,7 +1,7 @@
 <?php
 
-use Kalnoy\Shopping\Widgets\Options\TitleProviders\DatabaseTitles;
-use Kalnoy\Shopping\Widgets\Options\TitleProviders\TitlesFromModel;
+use Lazychaser\Shopping\Widgets\Options\TitleProviders\DatabaseTitles;
+use Lazychaser\Shopping\Widgets\Options\TitleProviders\TitlesFromModel;
 use Mockery as m;
 use Illuminate\Support\Facades\Cache;
 
@@ -11,7 +11,7 @@ class WidgetsOptionsTitlesProvidersTest extends PHPUnit_Framework_TestCase
 
     public function testArrayOptions()
     {
-        $options = new \Kalnoy\Shopping\Widgets\Options\TitleProviders\ArrayTitles([ 'foo' => 'bar', 'bar' => 'baz' ]);
+        $options = new \Lazychaser\Shopping\Widgets\Options\TitleProviders\ArrayTitles([ 'foo' => 'bar', 'bar' => 'baz' ]);
 
         $this->assertEquals([ 'foo' => 'bar' ], $options->titlesForOptions([ 'foo', 'baz' ]));
     }
@@ -62,8 +62,8 @@ class WidgetsOptionsTitlesProvidersTest extends PHPUnit_Framework_TestCase
 
     public function testCachingOptions()
     {
-        $provider = m::mock(\Kalnoy\Shopping\Contracts\Widgets\OptionsTitlesProvider::class);
-        $opts = new \Kalnoy\Shopping\Widgets\Options\TitleProviders\CachedTitles($provider);
+        $provider = m::mock(\Lazychaser\Shopping\Contracts\Widgets\OptionsTitlesProvider::class);
+        $opts = new \Lazychaser\Shopping\Widgets\Options\TitleProviders\CachedTitles($provider);
 
         $opts->minutes(33);
 

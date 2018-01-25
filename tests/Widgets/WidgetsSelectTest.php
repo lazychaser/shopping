@@ -1,7 +1,7 @@
 <?php
 
-use Kalnoy\Shopping\Widgets\Options\Option;
-use Kalnoy\Shopping\Widgets\Select;
+use Lazychaser\Shopping\Widgets\Options\Option;
+use Lazychaser\Shopping\Widgets\Select;
 use Mockery as m;
 
 class WidgetsSelectTest extends PHPUnit_Framework_TestCase
@@ -45,7 +45,7 @@ class WidgetsSelectTest extends PHPUnit_Framework_TestCase
 
     public function testGetsOptionsFromProvider()
     {
-        $provider = m::mock(\Kalnoy\Shopping\Contracts\Widgets\OptionsBuilder::class);
+        $provider = m::mock(\Lazychaser\Shopping\Contracts\Widgets\OptionsBuilder::class);
 
         $provider->shouldReceive('options')->andReturn([ [ 'value' => 'bar', 'title' => 'Bar', 'active' => false ] ]);
 

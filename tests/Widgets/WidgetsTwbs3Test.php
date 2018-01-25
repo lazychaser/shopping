@@ -4,10 +4,10 @@ class WidgetsTwbs3Test extends PHPUnit_Framework_TestCase
 {
     public function testRendersButtonCheckables()
     {
-        $list = new \Kalnoy\Shopping\Widgets\Twbs3\ButtonCheckableList('id', [
+        $list = new \Lazychaser\Shopping\Widgets\Twbs3\ButtonCheckableList('id', [
             'items' => [
-                new \Kalnoy\Shopping\Widgets\Options\Option('foo', 'Foo', null, false),
-                new \Kalnoy\Shopping\Widgets\Options\Option('bar', 'Bar', 2, true),
+                new \Lazychaser\Shopping\Widgets\Options\Option('foo', 'Foo', null, false),
+                new \Lazychaser\Shopping\Widgets\Options\Option('bar', 'Bar', 2, true),
             ],
 
             'buttonSize' => 'lg',
@@ -31,7 +31,7 @@ class WidgetsTwbs3Test extends PHPUnit_Framework_TestCase
 
     public function testRendersSelectControl()
     {
-        $select = new \Kalnoy\Shopping\Widgets\Twbs3\SelectControl('id', [
+        $select = new \Lazychaser\Shopping\Widgets\Twbs3\SelectControl('id', [
             'size' => 'lg',
         ]);
 

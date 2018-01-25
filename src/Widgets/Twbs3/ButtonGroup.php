@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets\Twbs3;
+namespace Lazychaser\Shopping\Widgets\Twbs3;
 
-use Kalnoy\Shopping\Widgets\AltLinkList;
-use Kalnoy\Shopping\Contracts\Widgets\Option as OptionContract;
+use Lazychaser\Shopping\Widgets\AltLinkList;
+use Lazychaser\Shopping\Contracts\Widgets\Option as OptionContract;
 
 class ButtonGroup extends AltLinkList
 {

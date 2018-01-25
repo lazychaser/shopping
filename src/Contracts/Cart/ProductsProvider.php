@@ -1,8 +1,8 @@
 <?php
 
-namespace Kalnoy\Shopping\Contracts\Cart;
+namespace Lazychaser\Shopping\Contracts\Cart;
 
-use Kalnoy\Shopping\Contracts\Commerce\Product;
+use Lazychaser\Shopping\Contracts\Commerce\Product;
 
 /**
  * SessionCart item provider interface.

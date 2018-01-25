@@ -1,8 +1,8 @@
 <?php
 
-namespace Kalnoy\Shopping\Contracts\Commerce;
+namespace Lazychaser\Shopping\Contracts\Commerce;
 
-use Kalnoy\Shopping\Data\Money;
+use Lazychaser\Shopping\Data\Money;
 
 interface UnitConversion
 {

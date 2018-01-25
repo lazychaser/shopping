@@ -1,6 +1,6 @@
 <?php
 
-namespace Kalnoy\Shopping\Support;
+namespace Lazychaser\Shopping\Support;
 
 use Illuminate\Support\Str;
 

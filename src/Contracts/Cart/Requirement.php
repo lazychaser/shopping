@@ -1,6 +1,6 @@
 <?php
 
-namespace Kalnoy\Shopping\Contracts\Cart;
+namespace Lazychaser\Shopping\Contracts\Cart;
 
 interface Requirement
 {

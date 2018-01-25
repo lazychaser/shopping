@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets;
+namespace Lazychaser\Shopping\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
-use Kalnoy\Shopping\Support\Helpers;
+use Lazychaser\Shopping\Support\Helpers;
 
 abstract class AbstractWidget implements Renderable
 {

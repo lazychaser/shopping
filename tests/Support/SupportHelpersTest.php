@@ -1,6 +1,6 @@
 <?php
 
-use Kalnoy\Shopping\Support\Helpers;
+use Lazychaser\Shopping\Support\Helpers;
 
 class SupportHelpersTest extends PHPUnit_Framework_TestCase
 {

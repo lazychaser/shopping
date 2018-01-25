@@ -1,9 +1,9 @@
 <?php
 
-namespace Kalnoy\Shopping\Widgets\Wrappers;
+namespace Lazychaser\Shopping\Widgets\Wrappers;
 
 use Illuminate\Contracts\Support\Renderable;
-use Kalnoy\Shopping\Widgets\AbstractWidget;
+use Lazychaser\Shopping\Widgets\AbstractWidget;
 
 abstract class AbstractWrapper extends AbstractWidget
 {
